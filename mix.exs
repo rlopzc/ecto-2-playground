@@ -14,7 +14,8 @@ defmodule E2P.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :postgrex, :ecto]]
+    [mod: {E2P, []},
+    applications: [:logger, :postgrex, :ecto]]
   end
 
   # Dependencies can be Hex packages:
