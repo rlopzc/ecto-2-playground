@@ -1,24 +1,14 @@
 # E2P
 
-**TODO: Add description**
+Playground for using ecto 2.0 queries, schemas, migrations and best practices
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+  - `mix deps.get`
+  - `mix ecto.create`
+  - `mix ecto.migrate`
 
-  1. Add `ecto_2_playground` to your list of dependencies in `mix.exs`:
+## Using IEx
 
-    ```elixir
-    def deps do
-      [{:ecto_2_playground, "~> 0.1.0"}]
-    end
-    ```
-
-  2. Ensure `ecto_2_playground` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:ecto_2_playground]]
-    end
-    ```
-
+  Aliases loaded by default are specified in `.iex.exs`
+  - `iex -S mix`
