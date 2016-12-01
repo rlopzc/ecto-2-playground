@@ -3,6 +3,7 @@ defmodule E2P.Weather do
   alias E2P.Repo
   alias E2P.Weather
   import Ecto.Query
+  import Ecto.Changeset
 
   schema "weather" do
     field :city     # Defaults to type :string
@@ -13,12 +14,28 @@ defmodule E2P.Weather do
     timestamps
   end
 
+  def changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:city, :temp_lo, :temp_hi, :prcp])
+    |> validate_required([:city])
+    |> validate_number(:temp_lo, less_than: 50)
+    |> validate_number(:temp_hi, less_than: 50)
+    |> validate_number(:prcp, greather_than_or_equal_to: 0)
+  end
+
+
   ##################
   # Schema Queries #
   ##################
 
   def all do
     Repo.all(Weather)
+  end
+
+  # Can't insert if changeset is invalid
+  # Enforcing that param weather must be an Ecto.Changeset
+  def insert(%Ecto.Changeset{} = weather) do
+    Repo.insert(weather)
   end
 
   @doc """
@@ -67,7 +84,8 @@ defmodule E2P.Weather do
   ######################
 
   def select_cities do
-    query = from "weather", select: [:city]
+    # query = from "weather", select: [:city]
+    query = from w in "weather", select: w.city
     Repo.all(query)
   end
 
